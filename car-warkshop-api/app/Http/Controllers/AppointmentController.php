@@ -54,21 +54,20 @@ class AppointmentController extends Controller
 
         
         // Checking if the aclient has another appointment that day
-        $clients = Client::where('license_number', $request->license_number)->where('appointment_date', $request->appointment_date)->first();
-
+        $clients = Appointment::where('license_number', $request->license_number)->where('appointment_date', $request->appointment_date)->first();
         if ($clients) {
             return response()->json([
                 'message' => 'Appointment already exists for this client on the selected date. Registration cancelled.'
             ], 409); // 409 Conflict
         }
-        if($appointmentCount>4){
+        else if($appointmentCount>4){
             return response()->json([
                 'message' => 'Mechanic has more appoinment.'
             ], 409); // 409 Conflict
         }
-
-        $client->save();
-
+        else{
+            $client->save();
+        }
 
         return response()->json([
             'message' => 'Client created successfully',

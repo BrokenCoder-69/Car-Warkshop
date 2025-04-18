@@ -56,7 +56,7 @@
   </div>
 
   <script>
-    // Load mechanics from API on page load
+    // Fetch
     window.onload = function () {
       fetch("http://localhost:8000/api/mechanics", {
         method: "GET",
@@ -98,8 +98,10 @@
         license_number: document.getElementById("carLicense").value,
         engine_number: document.getElementById("carEngine").value,
         appointment_date: document.getElementById("appointmentDate").value,
-        prefered_mechanic: document.getElementById("mechanic").value
+        mechanic_id: document.getElementById("mechanic").value 
       };
+
+      console.log("Sending payload:", payload); 
 
       fetch("http://localhost:8000/api/client/appointment", {
         method: "POST",
